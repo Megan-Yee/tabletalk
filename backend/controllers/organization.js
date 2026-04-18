@@ -1,5 +1,9 @@
 const Organization = require("../models/Organization");
 const User = require("../models/User");
+const jwt = require("jsonwebtoken");
+
+const generateToken = (user) =>
+  jwt.sign({ id: user._id, name: user.name, role: user.role }, process.env.JWT_SECRET, { expiresIn: "30d" });
 
 const registerAdmin = async (req, res) => {
   const { orgName } = req.body;
@@ -11,12 +15,13 @@ const registerAdmin = async (req, res) => {
   const alreadyAdmin = await Organization.findOne({ admin: req.user.id });
   if (alreadyAdmin) return res.status(400).json({ msg: "You are already an admin of an organization" });
 
-  await User.findByIdAndUpdate(req.user.id, { role: "admin" });
+  const updatedUser = await User.findByIdAndUpdate(req.user.id, { role: "admin" }, { new: true });
 
   const org = new Organization({ name: orgName, admin: req.user.id, members: [] });
   await org.save();
 
-  return res.status(201).json({ msg: `Organization "${orgName}" created`, org });
+  const token = generateToken(updatedUser);
+  return res.status(201).json({ msg: `Organization "${orgName}" created`, org, token });
 };
 
 const generateInviteCode = async (req, res) => {

@@ -34,7 +34,7 @@ export default function AdminRegister() {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.msg);
-      login({ ...user, role: 'admin' }, token);
+      login({ ...user, role: 'admin' }, data.token);
       toast.success(`Organization "${orgName}" created!`);
       navigate('/admin');
     } catch (err) {
