@@ -1,4 +1,3 @@
-console.log("App.js is running");
 require("dotenv").config();
 require("express-async-errors");
 
@@ -9,6 +8,7 @@ const connectDB = require("./db/connect");
 const userRouter = require("./routes/user");
 const profileRouter = require("./routes/profile");
 const orgRouter = require("./routes/organization");
+const eventRouter = require("./routes/event");
 
 const app = express();
 
@@ -18,6 +18,7 @@ app.use(cors());
 app.use("/api/v1", userRouter);
 app.use("/api/v1/profile", profileRouter);
 app.use("/api/v1/org", orgRouter);
+app.use("/api/v1/events", eventRouter);
 
 const port = process.env.PORT || 3000;
 

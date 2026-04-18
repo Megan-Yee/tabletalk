@@ -1,0 +1,326 @@
+
+/* ── Active nav link ── */
+.nav-active { color: var(--accent) !important; }
+.nav-active::after { width: 100% !important; background: var(--accent) !important; }
+
+/* ── View toggle (Month / List) ── */
+.view-toggle {
+  display: flex;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.view-btn {
+  padding: 8px 20px;
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.55);
+  font-family: 'Crimson Pro', serif;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: 0.04em;
+}
+
+.view-btn:hover { color: #fff; background: rgba(255,255,255,0.06); }
+.view-btn-active { background: var(--green-dark) !important; color: #fff !important; }
+
+/* ── Calendar month grid ── */
+.cal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.cal-month-title {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.4rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+}
+
+.cal-nav-btn {
+  background: none;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 8px;
+  color: rgba(255,255,255,0.7);
+  font-size: 1.4rem;
+  width: 36px; height: 36px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+  line-height: 1;
+}
+
+.cal-nav-btn:hover { border-color: rgba(255,255,255,0.5); color: #fff; }
+
+.cal-grid-header {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-bottom: 4px;
+}
+
+.cal-day-label {
+  text-align: center;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.35);
+  padding: 6px 0;
+}
+
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+}
+
+.cal-cell {
+  min-height: 80px;
+  padding: 6px 5px;
+  border-radius: 6px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid transparent;
+  transition: border-color 0.2s;
+  overflow: hidden;
+}
+
+.cal-cell:hover { border-color: rgba(255,255,255,0.1); }
+.cal-cell-empty { background: transparent; border-color: transparent !important; }
+
+.cal-cell-today {
+  background: rgba(7,79,36,0.2) !important;
+  border-color: rgba(7,79,36,0.5) !important;
+}
+
+.cal-cell-num {
+  display: block;
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 4px;
+  font-family: 'Crimson Pro', serif;
+}
+
+.cal-cell-today .cal-cell-num {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.cal-event-pill {
+  display: block;
+  background: var(--green-dark);
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.9);
+  cursor: pointer;
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: background 0.2s;
+}
+
+.cal-event-pill:hover { background: var(--green-mid); }
+
+.cal-event-more {
+  font-size: 0.68rem;
+  color: rgba(255,255,255,0.4);
+  cursor: pointer;
+  padding: 1px 4px;
+}
+
+/* ── List view ── */
+.list-section-title {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 14px;
+}
+
+.event-card {
+  display: flex;
+  gap: 20px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 18px 22px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  width: 100%;
+  max-width: 780px;
+}
+
+.event-card:hover {
+  border-color: rgba(7,79,36,0.5);
+  background: rgba(255,255,255,0.13);
+}
+
+.event-card-date {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 48px;
+  background: rgba(7,79,36,0.25);
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+
+.event-card-month {
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+}
+
+.event-card-day {
+  font-size: 1.6rem;
+  font-weight: 300;
+  line-height: 1.1;
+  color: #fff;
+}
+
+.event-card-info { flex: 1; }
+.event-card-title { font-size: 1.1rem; color: #fff; margin-bottom: 4px; }
+.event-card-time { font-size: 0.88rem; color: rgba(255,255,255,0.55); margin-bottom: 2px; }
+.event-card-location { font-size: 0.85rem; color: rgba(255,255,255,0.45); margin-bottom: 2px; }
+.event-card-org { font-size: 0.78rem; color: var(--accent); opacity: 0.7; margin-top: 4px; }
+
+/* ── Modal ── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.65);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 500;
+  padding: 20px;
+}
+
+.modal-card {
+  background: rgba(10,28,15,0.97);
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 16px;
+  padding: 36px 40px;
+  max-width: 480px;
+  width: 100%;
+  position: relative;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-close {
+  position: absolute;
+  top: 16px; right: 16px;
+  background: none; border: none;
+  color: rgba(255,255,255,0.4);
+  font-size: 1.1rem; cursor: pointer;
+  transition: color 0.2s;
+}
+
+.modal-close:hover { color: #fff; }
+
+.modal-date-badge {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+
+.modal-title {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.6rem;
+  font-weight: 400;
+  margin-bottom: 16px;
+}
+
+.modal-meta {
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 8px;
+}
+
+.modal-description {
+  margin-top: 16px;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.78);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding-top: 16px;
+}
+
+/* ── Tab bar ── */
+.tab-bar {
+  display: flex;
+  gap: 4px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 10px;
+  padding: 4px;
+  width: fit-content;
+}
+
+.tab-btn {
+  padding: 8px 22px;
+  background: none;
+  border: none;
+  border-radius: 7px;
+  color: rgba(255,255,255,0.5);
+  font-family: 'Crimson Pro', serif;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: 0.04em;
+}
+
+.tab-btn:hover { color: #fff; }
+.tab-btn-active { background: var(--green-dark); color: #fff !important; }
+
+/* ── Admin event rows ── */
+.admin-event-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  flex-wrap: wrap;
+}
+
+.admin-event-row:last-child { border-bottom: none; }
+
+.admin-event-date {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 44px;
+  background: rgba(7,79,36,0.2);
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 0.7rem;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.admin-event-date strong { font-size: 1.4rem; font-weight: 300; color: #fff; line-height: 1.1; }
+.admin-event-info { flex: 1; min-width: 160px; }
+.admin-event-title { font-size: 1.05rem; color: #fff; margin-bottom: 4px; }
+.admin-event-meta { display: flex; gap: 14px; flex-wrap: wrap; font-size: 0.82rem; color: rgba(255,255,255,0.45); }
+.admin-event-actions { display: flex; gap: 8px; }
+
+/* ── Responsive calendar ── */
+@media (max-width: 640px) {
+  .cal-cell { min-height: 56px; padding: 4px 3px; }
+  .cal-cell-num { font-size: 0.72rem; }
+  .cal-event-pill { font-size: 0.62rem; padding: 1px 4px; }
+  .modal-card { padding: 28px 20px; }
+}
