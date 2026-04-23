@@ -71,7 +71,7 @@ export default function Login() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.msg || 'Registration failed');
       login(data.user, data.token);
-      toast.success(`Welcome to Table Talk, ${data.user.name}!`);
+      toast.success(`Welcome to Seatd, ${data.user.name}!`);
       navigate('/profile/setup');
     } catch (err) {
       toast.error(err.message);
@@ -123,7 +123,7 @@ export default function Login() {
         <div className="auth-card">
           <CoffeeLogo />
           <h1 className="auth-title">Welcome Back</h1>
-          <p className="auth-subtitle">Sign in to your Table Talk account</p>
+          <p className="auth-subtitle">Sign in to your Seatd account</p>
 
           <div className="form-group">
             <label>Email</label>
@@ -164,7 +164,7 @@ export default function Login() {
       <div className="auth-card">
         <CoffeeLogo />
         <h1 className="auth-title">Create Your Account</h1>
-        <p className="auth-subtitle">Join Table Talk and start organizing meaningful social connections</p>
+        <p className="auth-subtitle">Join Seatd and start organizing meaningful social connections</p>
 
         <div className="tab-bar" style={{ marginBottom: 24, width: '100%', justifyContent: 'stretch' }}>
           <button

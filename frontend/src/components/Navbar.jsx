@@ -28,54 +28,56 @@ export default function Navbar() {
   };
 
   const isActive = (path) => location.pathname === path;
+  const firstName = user?.name?.split(' ')[0] || 'You';
 
   return (
-    <nav className="navbar">
-      <Link to="/">
-        <img src="/logo.svg" className="logo" alt="Seatd Logo" />
-      </Link>
-      <ul>
-        <li>
-          <Link to="/" className={isActive('/') ? 'nav-active' : ''}>Home</Link>
-        </li>
+    <nav className="nav-wrap">
+      <div className="nav-pill">
+        <Link to="/" className="nav-brand">
+          <img src="/transparent_black_logo.svg" alt="Seatd" />
+          <span>Seatd</span>
+        </Link>
 
-        {isLoggedIn ? (
-          <>
-            <li>
-              <Link to="/calendar" className={isActive('/calendar') ? 'nav-active' : ''}>Calendar</Link>
-            </li>
-            <li style={{ position: 'relative' }} ref={dropdownRef}>
-              <button
-                className="nav-link"
-                onClick={() => setDropdownOpen(o => !o)}
-                style={{ display: 'flex', alignItems: 'center', gap: '6px' }}
-              >
-                {user?.name}
-                <span style={{ fontSize: '0.6rem', opacity: 0.6 }}>▼</span>
-              </button>
-              {dropdownOpen && (
-                <div className="nav-dropdown">
-                  <div className="nav-dropdown-header">
-                    <span className="nav-dropdown-name">{user?.name}</span>
-                    <span className="nav-dropdown-role">{user?.role || 'member'}</span>
+        <div className="nav-right">
+          <ul className="nav-links">
+            <li><Link to="/" className={isActive('/') ? 'nav-active' : ''}>Home</Link></li>
+            {isLoggedIn && (
+              <li><Link to="/calendar" className={isActive('/calendar') ? 'nav-active' : ''}>Calendar</Link></li>
+            )}
+            {isLoggedIn && user?.role === 'admin' && (
+              <li><Link to="/dashboard" className={isActive('/dashboard') ? 'nav-active' : ''}>Dashboard</Link></li>
+            )}
+          </ul>
+
+          <div className="nav-cta">
+            {isLoggedIn ? (
+              <div style={{ position: 'relative' }} ref={dropdownRef}>
+                <button className="nav-user-btn" onClick={() => setDropdownOpen(o => !o)}>
+                  {firstName}
+                  <span style={{ fontSize: '0.6rem', opacity: 0.7 }}>▼</span>
+                </button>
+                {dropdownOpen && (
+                  <div className="nav-dropdown">
+                    <div className="nav-dropdown-header">
+                      <span className="nav-dropdown-name">{user?.name}</span>
+                      <span className="nav-dropdown-role">{user?.role || 'member'}</span>
+                    </div>
+                    <Link to="/profile" onClick={() => setDropdownOpen(false)}>Profile</Link>
+                    {user?.role === 'admin' && (
+                      <Link to="/dashboard" onClick={() => setDropdownOpen(false)}>Dashboard</Link>
+                    )}
+                    <Link to="/settings" onClick={() => setDropdownOpen(false)}>Settings</Link>
+                    <div className="nav-dropdown-divider" />
+                    <button className="nav-dropdown-logout" onClick={handleLogout}>Log out</button>
                   </div>
-                  <Link to="/profile" onClick={() => setDropdownOpen(false)}>Profile</Link>
-                  {user?.role === 'admin' && (
-                    <Link to="/dashboard" onClick={() => setDropdownOpen(false)}>Dashboard</Link>
-                  )}
-                  <Link to="/settings" onClick={() => setDropdownOpen(false)}>Settings</Link>
-                  <div className="nav-dropdown-divider" />
-                  <button className="nav-dropdown-logout" onClick={handleLogout}>Log out</button>
-                </div>
-              )}
-            </li>
-          </>
-        ) : (
-          <li>
-            <Link to="/login" className={isActive('/login') ? 'nav-active' : ''}>Login</Link>
-          </li>
-        )}
-      </ul>
+                )}
+              </div>
+            ) : (
+              <Link to="/login" className="nav-pill-btn">Get Started</Link>
+            )}
+          </div>
+        </div>
+      </div>
     </nav>
   );
 }

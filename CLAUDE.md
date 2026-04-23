@@ -1,4 +1,4 @@
-# Table Talk — Instructions for Claude
+# Seatd — Instructions for Claude
 
 This file loads automatically whenever Claude Code runs in this repo. Any change you make must follow the rules below so all 4 developers stay in sync.
 
@@ -6,7 +6,7 @@ This file loads automatically whenever Claude Code runs in this repo. Any change
 
 ## About this project
 
-Table Talk is a React + Node/Express + MongoDB app that helps org admins create events and auto-group members by shared interests (hobbies, budget, MBTI). It's being built by 4 beginner developers working in parallel for an MVP launch. Keep changes small, predictable, and matched to the existing code style.
+Seatd (formerly "Table Talk") is a React + Node/Express + MongoDB app that helps org admins create events and auto-group members by shared interests (hobbies, budget, MBTI). It's being built by 4 beginner developers working in parallel for an MVP launch. Keep changes small, predictable, and matched to the existing code style.
 
 **Stack:**
 - Frontend: React (Vite), React Router, react-toastify, plain CSS in `frontend/src/index.css`

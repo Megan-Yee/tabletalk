@@ -1,95 +1,212 @@
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import HeroStack from '../components/HeroStack';
 
-const CoffeeLogo = () => (
-  <div className="logo-icon">
-    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M17 8h1a4 4 0 0 1 0 8h-1"/>
-      <path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z"/>
-      <line x1="6.5" y1="2" x2="6.5" y2="5"/>
-      <line x1="10" y1="2" x2="10" y2="5"/>
-      <line x1="13.5" y1="2" x2="13.5" y2="5"/>
-    </svg>
-  </div>
-);
-
-const ShuffleIcon = () => (
-  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-    <polyline points="16 3 21 3 21 8"/>
-    <line x1="4" y1="20" x2="21" y2="3"/>
-    <polyline points="21 16 21 21 16 21"/>
-    <line x1="15" y1="15" x2="21" y2="21"/>
-  </svg>
-);
-
-const CalendarIcon = () => (
-  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-    <rect x="3" y="4" width="18" height="18" rx="2"/>
-    <line x1="16" y1="2" x2="16" y2="6"/>
-    <line x1="8" y1="2" x2="8" y2="6"/>
-    <line x1="3" y1="10" x2="21" y2="10"/>
-  </svg>
-);
-
-const PeopleIcon = () => (
-  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-    <circle cx="9" cy="7" r="4"/>
-    <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+const ArrowRight = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <line x1="5" y1="12" x2="19" y2="12"/>
+    <polyline points="12 5 19 12 12 19"/>
   </svg>
 );
 
 export default function Home() {
   const { isLoggedIn, user } = useAuth();
+  const firstName = user?.name?.split(' ')[0];
 
   return (
-    <div className="home-page">
-      <div className="home-hero">
-        <CoffeeLogo />
-        <h1 className="page-title">Welcome to Table Talk</h1>
-        <p className="page-subtitle">
-          Break down silos and build stronger teams through randomized social gatherings that connect people across your organization
-        </p>
-      </div>
+    <div className="home-v2">
+      <section className="hero-v2">
+        <div className="hero-v2-left">
+          {/* <span className="hero-eyebrow">For student orgs &amp; small communities</span> */}
+          <h1 className="hero-v2-title">
+            Your <em>autopilot</em> for <br />
+            community building.
+          </h1>
+          <p className="hero-v2-sub">
+            Coordinating group meetups based on shared vibes
+            to build a tight-knit community for your organization.
+          </p>
+          <div className="hero-v2-ctas">
+            <Link to={isLoggedIn ? '/calendar' : '/login?tab=register'} className="btn-pill">
+              {isLoggedIn ? 'Go to my calendar' : 'Take your seat'}
+              <ArrowRight />
+            </Link>
+            <a href="#how-it-works" className="btn-pill btn-pill-ghost">How it works</a>
+          </div>
+        </div>
 
-      <div className="feature-cards">
-        <div className="feature-card">
-          <div className="feature-icon"><ShuffleIcon /></div>
-          <h3 className="feature-title">Smart Randomization</h3>
-          <p className="feature-desc">Our algorithm creates diverse groups so employees meet colleagues they don't usually interact with</p>
+        <div className="hero-v2-right">
+          <div className="hero-v2-right-label">
+            <span></span> Live · Seating Now
+          </div>
+          <HeroStack />
         </div>
-        <div className="feature-card">
-          <div className="feature-icon"><CalendarIcon /></div>
-          <h3 className="feature-title">Easy Scheduling</h3>
-          <p className="feature-desc">Plan recurring social events with automated invites and calendar integration</p>
-        </div>
-        <div className="feature-card">
-          <div className="feature-icon"><PeopleIcon /></div>
-          <h3 className="feature-title">Build Connections</h3>
-          <p className="feature-desc">Foster cross-departmental relationships and strengthen company culture</p>
-        </div>
-      </div>
+      </section>
 
-      {isLoggedIn ? (
-        <div className="cta-card">
-          <p className="cta-welcome">Welcome back, {user?.name}!</p>
-          <Link to="/calendar" className="btn-primary" style={{ display: 'block', textDecoration: 'none' }}>
-            View My Calendar
-          </Link>
+      <section id="how-it-works" className="how-v3">
+        {/* <p className="how-v3-eyebrow">How Seatd works</p> */}
+
+        <div className="how-v3-row">
+          <div className="how-v3-text">
+            {/* <span className="how-v3-step-eyebrow">01 · Your Profile</span> */}
+            <h3 className="how-v3-headline">A profile with your vibe.</h3>
+            <p className="how-v3-body">
+              We ask about your preferences and what you're up for. Your profile helps
+              us find the right people to connect you with and the logistics ahead.
+            </p>
+          </div>
+          <div className="how-v3-visual">
+            <div className="mock-card">
+              <div>
+                <span className="mock-label">Profile</span>
+                <div className="mock-name" style={{ marginTop: 4 }}>Jordan Lee</div>
+              </div>
+              <div className="mock-section">
+                <span className="mock-section-label">Hobbies</span>
+                <div className="mock-chips">
+                  <span className="mock-chip mock-chip-active">Hiking</span>
+                  <span className="mock-chip mock-chip-active">Coffee</span>
+                  <span className="mock-chip mock-chip-active">Board Games</span>
+                  <span className="mock-chip">Music</span>
+                  <span className="mock-chip">Cooking</span>
+                  <span className="mock-chip">Running</span>
+                </div>
+              </div>
+              <div className="mock-section">
+                <span className="mock-section-label">MBTI</span>
+                <div className="mock-chips">
+                  <span className="mock-chip">INTJ</span>
+                  <span className="mock-chip">INFP</span>
+                  <span className="mock-chip mock-chip-active">ENFP</span>
+                  <span className="mock-chip">ESTJ</span>
+                </div>
+              </div>
+              <div className="mock-section">
+                <span className="mock-section-label">Budget</span>
+                <div className="mock-chips">
+                  <span className="mock-chip">$</span>
+                  <span className="mock-chip mock-chip-active">$$</span>
+                  <span className="mock-chip">$$$</span>
+                  <span className="mock-chip">$$$$</span>
+                </div>
+              </div>
+              <div className="mock-section">
+                <span className="mock-section-label">Dietary</span>
+                <div className="mock-chips">
+                  <span className="mock-chip mock-chip-active">Vegetarian</span>
+                  <span className="mock-chip">Vegan</span>
+                  <span className="mock-chip">Gluten-free</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      ) : (
-        <div className="cta-card">
-          <h3 className="cta-title">Get Started Today</h3>
-          <p className="cta-desc">Create a new organization or join your team with an invite code</p>
-          <Link to="/login?tab=register" className="btn-primary" style={{ display: 'block', textDecoration: 'none', marginBottom: 10 }}>
-            Create Account
-          </Link>
-          <Link to="/login" className="btn-secondary" style={{ display: 'block', textDecoration: 'none' }}>
-            Sign In
-          </Link>
+
+        <div className="how-v3-row how-v3-row-reverse">
+          <div className="how-v3-text">
+            {/* <span className="how-v3-step-eyebrow">02 · For Admins</span> */}
+            <h3 className="how-v3-headline">One form. That's it!</h3>
+            <p className="how-v3-body">
+              We'll help your org decide a time, place, and group size for your next event.
+            </p>
+          </div>
+          <div className="how-v3-visual">
+            <div className="mock-card">
+              <div>
+                <span className="mock-label">New Event</span>
+                <div className="mock-name" style={{ marginTop: 4 }}>Plan a gathering</div>
+              </div>
+              <div className="mock-form-group">
+                <span className="mock-section-label">Title</span>
+                <div className="mock-input">Coffee &amp; Catch-up</div>
+              </div>
+              <div className="mock-row">
+                <div className="mock-form-group">
+                  <span className="mock-section-label">Date</span>
+                  <div className="mock-input">Fri, Apr 24</div>
+                </div>
+                <div className="mock-form-group">
+                  <span className="mock-section-label">Time</span>
+                  <div className="mock-input">7:00 PM</div>
+                </div>
+              </div>
+              <div className="mock-form-group">
+                <span className="mock-section-label">Location</span>
+                <div className="mock-input">Victrola Coffee</div>
+              </div>
+              <div className="mock-form-group">
+                <span className="mock-section-label">Group Size</span>
+                <div className="mock-size-pills">
+                  <span className="mock-size-pill">2</span>
+                  <span className="mock-size-pill">3</span>
+                  <span className="mock-size-pill mock-size-pill-active">4</span>
+                  <span className="mock-size-pill">5</span>
+                  <span className="mock-size-pill">6</span>
+                </div>
+              </div>
+              <div className="mock-btn-primary">Generate groups</div>
+            </div>
+          </div>
         </div>
-      )}
+
+        <div className="how-v3-row">
+          <div className="how-v3-text">
+            {/* <span className="how-v3-step-eyebrow">03 · What You See</span> */}
+            <h3 className="how-v3-headline">Mix and match.</h3>
+            <p className="how-v3-body">
+              Get ready to find out who you've been matched with, you won't know your seat until the reveal.
+              Each person then sees their seat, who they're with, and what the group has in common. Have fun!
+            </p>
+          </div>
+          <div className="how-v3-visual">
+            <div className="mock-card">
+              <div className="mock-event-header">
+                <span className="mock-label">Fri · Apr 24 · 7:00 PM</span>
+                <div className="mock-name">Coffee &amp; Catch-up</div>
+              </div>
+              <div className="mock-group-card">
+                <span className="mock-group-label">Group 01</span>
+                <span className="mock-group-names">Alice, Bob, Charlie</span>
+                <span className="mock-group-shared">3 shared · Hiking · Coffee · Board Games</span>
+              </div>
+              <div className="mock-group-card">
+                <span className="mock-group-label">Group 02</span>
+                <span className="mock-group-names">Dana, Eli, Farah</span>
+                <span className="mock-group-shared">2 shared · Music · Cooking</span>
+              </div>
+              <div className="mock-group-card">
+                <span className="mock-group-label">Group 03</span>
+                <span className="mock-group-names">Gwen, Harper, Ivan, Jules</span>
+                <span className="mock-group-shared">3 shared · Running · Coffee · Hiking</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="home-cta">
+        <div className="home-cta-card">
+          {isLoggedIn ? (
+            <>
+              <h2 className="home-cta-title">Welcome back, {firstName}.</h2>
+              <p className="home-cta-desc">Your next gathering is one click away.</p>
+              <Link to="/calendar" className="home-cta-btn">
+                View my calendar <ArrowRight />
+              </Link>
+            </>
+          ) : (
+            <>
+              <h2 className="home-cta-title">Ready to take your seat?</h2>
+              <p className="home-cta-desc">
+                Register your org or join an existing one with an invite code. We promise the whole thing takes about a minute!
+              </p>
+              <Link to="/login?tab=register" className="home-cta-btn">
+                Take your seat <ArrowRight />
+              </Link>
+            </>
+          )}
+        </div>
+      </section>
     </div>
   );
 }
