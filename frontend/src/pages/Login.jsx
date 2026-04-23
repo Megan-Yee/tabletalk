@@ -7,7 +7,7 @@ const API = import.meta.env.VITE_API_URL || 'http://localhost:3000/api/v1';
 
 const CoffeeLogo = () => (
   <div className="auth-logo">
-    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C4783A" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
       <path d="M17 8h1a4 4 0 0 1 0 8h-1"/>
       <path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z"/>
       <line x1="6.5" y1="2" x2="6.5" y2="5"/>
@@ -151,9 +151,7 @@ export default function Login() {
 
           <div className="form-footer">
             Don't have an account?{' '}
-            <button onClick={goToRegister} style={{ background: 'none', border: 'none', color: 'var(--primary)', cursor: 'pointer', fontFamily: 'inherit', fontSize: 'inherit', fontWeight: 600, padding: 0 }}>
-              Sign up
-            </button>
+            <button onClick={goToRegister} className="form-footer-btn">Sign up</button>
           </div>
         </div>
       </div>
@@ -229,7 +227,7 @@ export default function Login() {
             <div className="form-group">
               <label>Organization Name</label>
               <input type="text" name="orgName" placeholder="Acme Inc." value={form.orgName} onChange={handleChange} maxLength={60} />
-              <p style={{ fontSize: '0.78rem', color: 'rgba(0,0,0,0.4)', marginTop: 5 }}>
+              <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginTop: 5 }}>
                 You'll receive an invite code to share with your team
               </p>
             </div>
@@ -249,9 +247,7 @@ export default function Login() {
 
         <div className="form-footer" style={{ marginTop: 16 }}>
           Already have an account?{' '}
-          <button onClick={goToLogin} style={{ background: 'none', border: 'none', color: 'var(--primary)', cursor: 'pointer', fontFamily: 'inherit', fontSize: 'inherit', fontWeight: 600, padding: 0 }}>
-            Sign in
-          </button>
+          <button onClick={goToLogin} className="form-footer-btn">Sign in</button>
         </div>
       </div>
     </div>

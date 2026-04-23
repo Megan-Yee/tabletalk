@@ -123,24 +123,24 @@ export default function AdminDashboard() {
 
       {/* Invite Code */}
       <div className="glass-card glass-card-wide" style={{ marginBottom: '24px' }}>
-        <h2 style={{ fontSize: '1.1rem', marginBottom: '16px' }}>Invite Code</h2>
+        <h2 className="dash-section-title">Invite Code</h2>
         {org?.inviteCode && org?.isInviteValid ? (
           <>
             <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '8px', flexWrap: 'wrap' }}>
               <div className="invite-code-display">{org.inviteCode}</div>
               <button className="btn-secondary" onClick={copyCode}>Copy</button>
             </div>
-            <p style={{ fontSize: '0.85rem', color: 'rgba(255,255,255,0.4)' }}>Expires: {formatDate(org.inviteCodeExpiry)}</p>
+            <p className="dash-hint">Expires: {formatDate(org.inviteCodeExpiry)}</p>
           </>
         ) : (
-          <p style={{ color: 'rgba(255,255,255,0.4)', marginBottom: '8px' }}>
+          <p className="dash-empty" style={{ marginBottom: '8px' }}>
             {org?.inviteCode ? 'Your invite code has expired.' : 'No active invite code.'}
           </p>
         )}
         <button className="btn-primary" onClick={handleGenerateCode} disabled={generating} style={{ marginTop: '14px', width: 'auto', padding: '10px 24px' }}>
           {generating ? 'Generating…' : org?.inviteCode ? 'Generate New Code' : 'Generate Invite Code'}
         </button>
-        <p style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.28)', marginTop: '6px' }}>Valid for 3 days.</p>
+        <p className="dash-hint">Valid for 3 days.</p>
       </div>
 
       {/* Tab switcher */}
@@ -157,15 +157,15 @@ export default function AdminDashboard() {
       {tab === 'members' && (
         <div className="glass-card glass-card-wide">
           {members.length === 0
-            ? <p style={{ color: 'rgba(255,255,255,0.4)' }}>No members yet.</p>
+            ? <p className="dash-empty">No members yet.</p>
             : (
               <div className="members-table">
                 <div className="members-table-header"><span>#</span><span>Name</span><span>Email</span></div>
                 {members.map((m, i) => (
                   <div className="members-table-row" key={m._id}>
-                    <span style={{ color: 'rgba(255,255,255,0.35)', fontSize: '0.85rem' }}>{i + 1}</span>
+                    <span className="member-index">{i + 1}</span>
                     <span>{m.name}</span>
-                    <span style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.95rem' }}>{m.email}</span>
+                    <span className="member-email">{m.email}</span>
                   </div>
                 ))}
               </div>
@@ -177,13 +177,13 @@ export default function AdminDashboard() {
       {/* Events tab */}
       {tab === 'events' && (
         <div className="glass-card glass-card-wide">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-            <h2 style={{ fontSize: '1.1rem' }}>Organization Events</h2>
+          <div className="dash-section-header">
+            <h2>Organization Events</h2>
             <button className="btn-primary" onClick={openNewEvent} style={{ width: 'auto', padding: '10px 22px' }}>+ New Event</button>
           </div>
 
           {events.length === 0
-            ? <p style={{ color: 'rgba(255,255,255,0.4)' }}>No events yet. Create one to assign to members.</p>
+            ? <p className="dash-empty">No events yet. Create one to assign to members.</p>
             : events.map(ev => {
                 const d = new Date(ev.date);
                 return (
@@ -201,8 +201,8 @@ export default function AdminDashboard() {
                       </div>
                     </div>
                     <div className="admin-event-actions">
-                      <button className="btn-secondary" style={{ padding: '6px 14px', fontSize: '0.9rem' }} onClick={() => openEditEvent(ev)}>Edit</button>
-                      <button onClick={() => handleDeleteEvent(ev._id)} style={{ background: 'rgba(180,40,40,0.3)', border: '1px solid rgba(200,60,60,0.4)', borderRadius: '8px', color: '#ff9999', padding: '6px 14px', fontSize: '0.9rem', cursor: 'pointer' }}>Delete</button>
+                      <button className="btn-secondary btn-auto" style={{ padding: '6px 14px', fontSize: '0.9rem' }} onClick={() => openEditEvent(ev)}>Edit</button>
+                      <button className="btn-delete-sm" onClick={() => handleDeleteEvent(ev._id)}>Delete</button>
                     </div>
                   </div>
                 );
@@ -248,7 +248,7 @@ export default function AdminDashboard() {
                 placeholder="Optional details…"
                 value={eventForm.description}
                 onChange={e => setEventForm(f => ({ ...f, description: e.target.value }))}
-                style={{ width: '100%', padding: '10px 14px', background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '8px', color: '#fff', fontFamily: 'inherit', fontSize: '1rem', minHeight: '80px', resize: 'vertical' }}
+                style={{ width: '100%', padding: '10px 14px', background: 'var(--white)', border: '1px solid var(--border-default)', borderRadius: '8px', color: 'var(--text-dark)', fontFamily: 'var(--font-body)', fontSize: '1rem', minHeight: '80px', resize: 'vertical' }}
               />
             </div>
 

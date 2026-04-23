@@ -3,7 +3,7 @@ import { useAuth } from '../context/AuthContext';
 
 const CoffeeLogo = () => (
   <div className="logo-icon">
-    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#C4783A" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
       <path d="M17 8h1a4 4 0 0 1 0 8h-1"/>
       <path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z"/>
       <line x1="6.5" y1="2" x2="6.5" y2="5"/>
@@ -73,9 +73,7 @@ export default function Home() {
 
       {isLoggedIn ? (
         <div className="cta-card">
-          <p style={{ fontSize: '0.9rem', color: 'rgba(0,0,0,0.5)', marginBottom: 16 }}>
-            Welcome back, {user?.name}!
-          </p>
+          <p className="cta-welcome">Welcome back, {user?.name}!</p>
           <Link to="/calendar" className="btn-primary" style={{ display: 'block', textDecoration: 'none' }}>
             View My Calendar
           </Link>

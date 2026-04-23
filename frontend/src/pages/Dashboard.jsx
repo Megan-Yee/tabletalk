@@ -140,7 +140,7 @@ export default function Dashboard() {
           <div className="dash-sidebar-header"><span className="dash-sidebar-title">Account Dashboard</span></div>
         </aside>
         <main className="dash-content" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <p style={{ color: 'rgba(0,0,0,0.4)', fontFamily: 'Crimson Pro, serif', fontSize: '1.1rem' }}>Loading…</p>
+          <p style={{ color: 'var(--text-muted)', fontFamily: 'var(--font-body)', fontSize: '1.1rem' }}>Loading…</p>
         </main>
       </div>
     );
@@ -223,14 +223,9 @@ export default function Dashboard() {
             {selectedEvent.description && (
               <p className="modal-description">{selectedEvent.description}</p>
             )}
-            <div style={{ display: 'flex', gap: '10px', marginTop: '24px' }}>
+            <div className="modal-actions">
               <button className="btn-secondary" style={{ flex: 1 }} onClick={() => openEditEvent(selectedEvent)}>Edit</button>
-              <button
-                style={{ flex: 1, background: 'rgba(180,40,40,0.1)', border: '1px solid rgba(200,60,60,0.3)', borderRadius: '8px', color: '#c0392b', padding: '12px 24px', fontSize: '1.05rem', cursor: 'pointer', fontFamily: 'Crimson Pro, serif' }}
-                onClick={() => handleDeleteEvent(selectedEvent._id)}
-              >
-                Delete
-              </button>
+              <button className="btn-delete" style={{ flex: 1 }} onClick={() => handleDeleteEvent(selectedEvent._id)}>Delete</button>
             </div>
           </div>
         </div>
@@ -258,7 +253,7 @@ function OverviewView({ org, members, events, onNav }) {
         </div>
         <div className="dash-stat-card">
           <span className="dash-stat-label">Organization Code</span>
-          <span className="dash-stat-value" style={{ fontSize: '1.6rem', letterSpacing: '0.15em', fontFamily: 'Courier New, monospace', color: 'var(--green-dark)' }}>
+          <span className="dash-stat-value-mono">
             {org?.inviteCode && org?.isInviteValid ? org.inviteCode : '—'}
           </span>
         </div>
@@ -364,7 +359,7 @@ function EventsView({ events, onViewDetails, onNewEvent, formatDate }) {
 
       {events.length === 0 ? (
         <div className="dash-form-card" style={{ textAlign: 'center', padding: '48px 24px' }}>
-          <p style={{ color: 'rgba(0,0,0,0.4)', fontSize: '1.05rem' }}>No events yet. Create one to get started.</p>
+          <p className="dash-empty">No events yet. Create one to get started.</p>
         </div>
       ) : (
         <div className="dash-events-table">
@@ -410,32 +405,32 @@ function OrganizationView({ org, members, generating, handleGenerateCode, copyCo
               <div className="invite-code-display">{org.inviteCode}</div>
               <button className="btn-secondary" onClick={copyCode}>Copy</button>
             </div>
-            <p style={{ fontSize: '0.85rem', color: 'rgba(0,0,0,0.4)' }}>Expires: {formatDate(org.inviteCodeExpiry)}</p>
+            <p className="dash-hint">Expires: {formatDate(org.inviteCodeExpiry)}</p>
           </>
         ) : (
-          <p style={{ color: 'rgba(0,0,0,0.4)', marginBottom: '8px' }}>
+          <p className="dash-empty" style={{ marginBottom: '8px' }}>
             {org?.inviteCode ? 'Your invite code has expired.' : 'No active invite code.'}
           </p>
         )}
         <button className="btn-primary" onClick={handleGenerateCode} disabled={generating} style={{ marginTop: '14px', width: 'auto', padding: '10px 24px' }}>
           {generating ? 'Generating…' : org?.inviteCode ? 'Generate New Code' : 'Generate Invite Code'}
         </button>
-        <p style={{ fontSize: '0.75rem', color: 'rgba(0,0,0,0.3)', marginTop: '6px' }}>Valid for 3 days.</p>
+        <p className="dash-hint">Valid for 3 days.</p>
       </div>
 
       {/* Members */}
       <div className="dash-form-card">
         <h2 className="dash-section-title">Members ({members.length})</h2>
         {members.length === 0 ? (
-          <p style={{ color: 'rgba(0,0,0,0.4)' }}>No members yet. Share your invite code to get started.</p>
+          <p className="dash-empty">No members yet. Share your invite code to get started.</p>
         ) : (
           <div className="members-table">
             <div className="members-table-header"><span>#</span><span>Name</span><span>Email</span></div>
             {members.map((m, i) => (
               <div className="members-table-row" key={m._id}>
-                <span style={{ color: 'rgba(0,0,0,0.35)', fontSize: '0.85rem' }}>{i + 1}</span>
+                <span className="member-index">{i + 1}</span>
                 <span>{m.name}</span>
-                <span style={{ color: 'rgba(0,0,0,0.55)', fontSize: '0.95rem' }}>{m.email}</span>
+                <span className="member-email">{m.email}</span>
               </div>
             ))}
           </div>
