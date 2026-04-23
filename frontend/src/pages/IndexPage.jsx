@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 export default function IndexPage() {
   return (
     <div className="page">
-      <h1 className="page-title">Welcome to TableTalk</h1>
+      <h1 className="page-title">Welcome to Seatd</h1>
       <div className="glass-card glass-card-wide">
         <div className="info-box">
           Each year, farmers apply herbicide to their crops to eliminate common weeds. Yet, excess

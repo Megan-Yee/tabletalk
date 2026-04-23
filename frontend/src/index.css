@@ -46,12 +46,12 @@ body {
   border-bottom: 1px solid rgba(0,0,0,0.1);
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 1000;
   background: rgba(var(--bg-rgb), 0.95);
   backdrop-filter: blur(8px);
 }
 
-.navbar .logo { width: 140px; cursor: pointer; }
+.navbar .logo { height: 42px; width: auto; cursor: pointer; }
 
 .navbar ul { list-style: none; display: flex; gap: 36px; align-items: center; }
 
@@ -59,10 +59,9 @@ body {
 .navbar ul li button.nav-link {
   text-decoration: none;
   color: #1a1a1a;
-  text-transform: uppercase;
   font-family: var(--font-body);
   font-size: 0.85rem;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.02em;
   background: none;
   border: none;
   cursor: pointer;
@@ -92,39 +91,79 @@ body {
 /* â”€â”€ Navbar Dropdown â”€â”€ */
 .nav-dropdown {
   position: absolute;
-  top: calc(100% + 14px);
+  top: calc(100% + 12px);
   right: 0;
   background: var(--bg);
-  border: 1px solid rgba(0,0,0,0.12);
-  border-radius: 10px;
-  min-width: 180px;
-  padding: 8px 0;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
-  z-index: 200;
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 12px;
+  min-width: 220px;
+  padding: 8px 8px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+  z-index: 1001;
+}
+
+.nav-dropdown-header {
+  padding: 10px 10px 10px;
+  border-bottom: 1px solid rgba(0,0,0,0.07);
+  margin-bottom: 6px;
+}
+
+.nav-dropdown-name {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #1a1a1a;
+}
+
+.nav-dropdown-role {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: rgba(0,0,0,0.4);
+  margin-top: 2px;
+  text-transform: capitalize;
 }
 
 .nav-dropdown a,
 .nav-dropdown button {
   display: block;
   width: 100%;
-  padding: 10px 18px;
+  box-sizing: border-box;
+  padding: 10px 12px;
+  border-radius: 8px;
   text-align: left;
-  color: #1a1a1a;
+  color: rgba(0,0,0,0.7);
   text-decoration: none;
   font-family: var(--font-body);
-  font-size: 1rem;
+  font-size: 0.875rem;
   background: none;
   border: none;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: background 0.15s, color 0.15s;
   text-transform: none;
   letter-spacing: 0;
 }
 
 .nav-dropdown a:hover,
 .nav-dropdown button:hover {
-  background: rgba(7, 79, 36, 0.1);
-  color: var(--green-dark);
+  background: rgba(var(--primary-rgb), 0.07);
+  color: var(--primary);
+}
+
+.nav-dropdown-divider {
+  height: 1px;
+  background: rgba(0,0,0,0.07);
+  margin: 6px 0;
+}
+
+.nav-dropdown-logout {
+  color: rgba(0,0,0,0.5) !important;
+}
+
+.nav-dropdown-logout:hover {
+  background: rgba(180,40,40,0.07) !important;
+  color: #c0392b !important;
 }
 
 /* â”€â”€ Page Layout â”€â”€ */
@@ -140,7 +179,7 @@ body {
   font-family: var(--font-heading);
   font-size: clamp(2.2rem, 5vw, 3.8rem);
   font-weight: 400;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.02em;
   color: #1a1a1a;
   margin-bottom: 20px;
   text-align: center;
@@ -175,8 +214,7 @@ body {
 .form-group label {
   display: block;
   font-size: 0.85rem;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
+  letter-spacing: 0.01em;
   color: rgba(0,0,0,0.5);
   margin-bottom: 8px;
 }
@@ -212,7 +250,7 @@ body {
   border-radius: 8px;
   font-family: var(--font-body);
   font-size: 1.05rem;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.01em;
   text-align: center;
   display: inline-block;
 }
@@ -789,7 +827,7 @@ body {
   font-family: var(--font-heading);
   font-size: clamp(1.8rem, 3vw, 2.6rem);
   font-weight: 400;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.02em;
   color: #1a1a1a;
   margin-bottom: 8px;
 }

@@ -26,7 +26,7 @@ export default function Register() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.msg || 'Registration failed');
       login(data.user, data.token);
-      toast.success(`Welcome to TableTalk, ${data.user.name}!`);
+      toast.success(`Welcome to Seatd, ${data.user.name}!`);
       navigate('/profile/setup');
     } catch (err) {
       toast.error(err.message);

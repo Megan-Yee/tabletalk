@@ -32,7 +32,7 @@ export default function Navbar() {
   return (
     <nav className="navbar">
       <Link to="/">
-        <img src="/tabletalklogo.png" className="logo" alt="TableTalk Logo" />
+        <img src="/logo.svg" className="logo" alt="Seatd Logo" />
       </Link>
       <ul>
         <li>
@@ -55,12 +55,17 @@ export default function Navbar() {
               </button>
               {dropdownOpen && (
                 <div className="nav-dropdown">
-                  <Link to="/profile" onClick={() => setDropdownOpen(false)}>My Profile</Link>
+                  <div className="nav-dropdown-header">
+                    <span className="nav-dropdown-name">{user?.name}</span>
+                    <span className="nav-dropdown-role">{user?.role || 'member'}</span>
+                  </div>
+                  <Link to="/profile" onClick={() => setDropdownOpen(false)}>Profile</Link>
                   {user?.role === 'admin' && (
                     <Link to="/dashboard" onClick={() => setDropdownOpen(false)}>Dashboard</Link>
                   )}
                   <Link to="/settings" onClick={() => setDropdownOpen(false)}>Settings</Link>
-                  <button onClick={handleLogout}>Logout</button>
+                  <div className="nav-dropdown-divider" />
+                  <button className="nav-dropdown-logout" onClick={handleLogout}>Log out</button>
                 </div>
               )}
             </li>
