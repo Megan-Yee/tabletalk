@@ -57,7 +57,7 @@ export default function Navbar() {
                 <div className="nav-dropdown">
                   <Link to="/profile" onClick={() => setDropdownOpen(false)}>My Profile</Link>
                   {user?.role === 'admin' && (
-                    <Link to="/admin" onClick={() => setDropdownOpen(false)}>Admin Dashboard</Link>
+                    <Link to="/dashboard" onClick={() => setDropdownOpen(false)}>Dashboard</Link>
                   )}
                   <Link to="/settings" onClick={() => setDropdownOpen(false)}>Settings</Link>
                   <button onClick={handleLogout}>Logout</button>

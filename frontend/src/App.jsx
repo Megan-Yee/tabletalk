@@ -12,6 +12,7 @@ import Profile from './pages/Profile';
 import ProfileSetup from './pages/ProfileSetup';
 import AdminRegister from './pages/AdminRegister';
 import AdminDashboard from './pages/AdminDashboard';
+import Dashboard from './pages/Dashboard';
 
 function PrivateRoute({ children }) {
   const { isLoggedIn, loading } = useAuth();
@@ -43,7 +44,8 @@ function AppRoutes() {
         <Route path="/settings"       element={<PrivateRoute><div className="page"><h1 className="page-title">Settings</h1><p className="page-subtitle">Coming soon.</p></div></PrivateRoute>} />
 
         {/* Admin only */}
-        <Route path="/admin"          element={<AdminRoute><AdminDashboard /></AdminRoute>} />
+        <Route path="/admin"          element={<Navigate to="/dashboard" />} />
+        <Route path="/dashboard"      element={<AdminRoute><Dashboard /></AdminRoute>} />
 
         {/* Catch-all */}
         <Route path="*"               element={<Navigate to="/" />} />
