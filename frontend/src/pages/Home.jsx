@@ -16,7 +16,27 @@ export default function Home() {
 
   useEffect(() => {
     document.body.classList.add('body-on-dark');
-    return () => document.body.classList.remove('body-on-dark');
+    const prev = document.body.style.cssText;
+    document.body.style.background = `
+      radial-gradient(ellipse 70% 80% at 18% 22%, var(--primary) 0%, transparent 55%),
+      radial-gradient(ellipse 60% 70% at 82% 28%, var(--accent) 0%, transparent 50%),
+      radial-gradient(ellipse 75% 65% at 70% 90%, var(--primary-dark) 0%, transparent 55%),
+      radial-gradient(ellipse 55% 60% at 12% 88%, var(--primary-dark) 0%, transparent 60%),
+      var(--primary-dark)
+    `;
+    document.body.style.backgroundAttachment = 'fixed';
+    return () => {
+      document.body.classList.remove('body-on-dark');
+      document.body.style.cssText = prev;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (window.location.hash === '#how-it-works') {
+      requestAnimationFrame(() => {
+        document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
   }, []);
 
   useEffect(() => {
@@ -36,11 +56,30 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="home-v2">
+    <div className="home-v2" style={{ background: 'transparent' }}>
       <style>{`
-        .home-v2 .mock-card,
         .home-v2 .hero-stack-card,
         .home-v2 .hero-stack-group { box-shadow: none; }
+
+        /* Take the nav out of layout flow on the home page so the hero
+           can span 0 → 100vh and its centered contents land at true viewport center.
+           !important is needed because Navbar sets position:relative inline. */
+        body.body-on-dark .nav-on-dark.nav-wrap {
+          position: fixed !important;
+          top: 0;
+          left: 0;
+          right: 0;
+        }
+
+        /* Constrain the hero so flex content can't overflow past 100vh. */
+        .home-v2 .hero-v2 {
+          min-height: 0;
+          overflow: hidden;
+        }
+        .home-v2 .hero-v2 .hero-v2-left,
+        .home-v2 .hero-v2 .hero-v2-right { flex: 0 0 auto; }
+
+        .home-v2 .hero-v2-left .hero-v2-ctas { margin-top: 12px; }
 
         .home-v2 .how-v3-row .mock-card {
           transition: transform 0.35s ease;
@@ -48,28 +87,48 @@ export default function Home() {
         .home-v2 .how-v3-row .mock-card:hover { transform: rotate(-2deg); }
         .home-v2 .how-v3-row.how-v3-row-reverse .mock-card:hover { transform: rotate(2deg); }
 
-        /* Scrolled nav: keep transparent so the section gradient shows through.
-           Blur lives on a ::before so we can mask its bottom edge into a soft fade. */
-        body.nav-scrolled .nav-on-dark.nav-wrap {
-          background: transparent;
-          box-shadow: none;
+        .page-grain {
+          position: fixed;
+          inset: -12%;
+          width: 124%;
+          height: 124%;
+          z-index: -1;
+          pointer-events: none;
+          opacity: 0.45;
+          display: block;
+          mix-blend-mode: overlay;
+          animation: grain-shift 1.5s steps(8) infinite;
+          will-change: transform;
         }
-        body.nav-scrolled .nav-on-dark .nav-brand,
-        body.nav-scrolled .nav-on-dark .nav-brand:hover { color: var(--white); }
-        body.nav-scrolled .nav-on-dark .nav-brand img { filter: brightness(0) invert(1); }
-        body.nav-scrolled .nav-on-dark .nav-links a,
-        body.nav-scrolled .nav-on-dark .nav-links .nav-link { color: rgba(255,255,255,0.78); }
-        body.nav-scrolled .nav-on-dark .nav-links a:hover,
-        body.nav-scrolled .nav-on-dark .nav-links .nav-link:hover { color: var(--white); }
-        body.nav-scrolled .nav-on-dark .nav-links .nav-active { color: var(--white) !important; }
-        body.nav-scrolled .nav-on-dark .nav-user-btn,
-        body.nav-scrolled .nav-on-dark .nav-user-btn:hover { color: var(--white); }
+        @keyframes grain-shift {
+          0%   { transform: translate3d(0, 0, 0); }
+          10%  { transform: translate3d(-5%, -5%, 0); }
+          20%  { transform: translate3d(3%, 4%, 0); }
+          30%  { transform: translate3d(-4%, 1%, 0); }
+          40%  { transform: translate3d(5%, -3%, 0); }
+          50%  { transform: translate3d(-2%, 5%, 0); }
+          60%  { transform: translate3d(4%, -1%, 0); }
+          70%  { transform: translate3d(-3%, -4%, 0); }
+          80%  { transform: translate3d(1%, 2%, 0); }
+          90%  { transform: translate3d(-5%, -3%, 0); }
+          100% { transform: translate3d(0, 0, 0); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .page-grain { animation: none; }
+        }
       `}</style>
-      <div style={{ background: 'linear-gradient(180deg, var(--primary-dark) 0%, var(--primary) 100%)' }}>
-      <section className="hero-v2" style={{ display: 'block', maxWidth: 'none', padding: '72px 0 0', gap: 0 }}>
-        <div className="hero-v2-left" style={{ padding: '0 56px', marginBottom: 56 }}>
+      <svg className="page-grain" aria-hidden="true" preserveAspectRatio="none">
+        <filter id="page-grain-filter">
+          <feTurbulence type="fractalNoise" baseFrequency="0.5" numOctaves="2" stitchTiles="stitch" />
+          <feColorMatrix type="saturate" values="0" />
+        </filter>
+        <rect width="100%" height="100%" filter="url(#page-grain-filter)" />
+      </svg>
+      <div>
+      <section className="hero-v2" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', maxWidth: 'none', padding: 0, gap: 80, background: 'transparent', height: '100vh' }}>
+        <div className="hero-v2-left" style={{ padding: '0 56px', marginBottom: 0, gap: 20 }}>
           {/* <span className="hero-eyebrow">For student orgs &amp; small communities</span> */}
-          <h1 className="hero-v2-title" style={{ fontSize: 'clamp(3rem, 4vw, 6rem)' }}>
+          <h1 className="hero-v2-title" style={{ fontSize: '3rem' }}>
             Your <em>autopilot</em> for <br />
             community building.
           </h1>
@@ -85,13 +144,13 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="hero-v2-right" style={{ aspectRatio: 'auto', width: '100%', paddingBottom: 60 }}>
+        <div className="hero-v2-right" style={{ aspectRatio: 'auto', width: '100%', paddingBottom: 0 }}>
           <HeroStack />
         </div>
       </section>
       </div>
 
-      <div style={{ background: 'linear-gradient(180deg, var(--primary) 0%, var(--accent) 100%)' }}>
+      <div style={{ background: 'var(--bg)' }}>
       <section id="how-it-works" className="how-v3">
         {/* <p className="how-v3-eyebrow">How Seatd works</p> */}
 
@@ -234,7 +293,7 @@ export default function Home() {
       </section>
       </div>
 
-      <div style={{ background: 'linear-gradient(180deg, var(--accent) 0%, var(--primary-light) 100%)' }}>
+      <div style={{ background: 'var(--bg)' }}>
       <section className="home-cta">
         <div className="home-cta-card">
           {isLoggedIn ? (
