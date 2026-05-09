@@ -42,6 +42,12 @@ export default function Home() {
         .home-v2 .hero-stack-card,
         .home-v2 .hero-stack-group { box-shadow: none; }
 
+        .home-v2 .how-v3-row .mock-card {
+          transition: transform 0.35s ease;
+        }
+        .home-v2 .how-v3-row .mock-card:hover { transform: rotate(-2deg); }
+        .home-v2 .how-v3-row.how-v3-row-reverse .mock-card:hover { transform: rotate(2deg); }
+
         /* Scrolled nav: keep transparent so the section gradient shows through.
            Blur lives on a ::before so we can mask its bottom edge into a soft fade. */
         body.nav-scrolled .nav-on-dark.nav-wrap {
@@ -63,7 +69,7 @@ export default function Home() {
       <section className="hero-v2" style={{ display: 'block', maxWidth: 'none', padding: '72px 0 0', gap: 0 }}>
         <div className="hero-v2-left" style={{ padding: '0 56px', marginBottom: 56 }}>
           {/* <span className="hero-eyebrow">For student orgs &amp; small communities</span> */}
-          <h1 className="hero-v2-title">
+          <h1 className="hero-v2-title" style={{ fontSize: 'clamp(3rem, 4vw, 6rem)' }}>
             Your <em>autopilot</em> for <br />
             community building.
           </h1>

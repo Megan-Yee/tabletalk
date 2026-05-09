@@ -7,17 +7,16 @@ export default function HeroStack() {
     <div className="hs-ticker" aria-hidden="true">
       <style>{`
         .hs-ticker {
-          overflow: clip;
+          overflow: visible;
           width: 100%;
           height: 100%;
           display: flex;
           align-items: center;
-          contain: layout paint;
         }
         .hs-ticker-track {
           display: flex;
           width: max-content;
-          animation: hs-ticker-scroll 12s linear infinite;
+          animation: hs-ticker-scroll 90s linear infinite;
           will-change: transform;
           transform: translate3d(0, 0, 0);
         }
@@ -78,6 +77,75 @@ export default function HeroStack() {
                 <span className="hs-dot" style={{ background: '#7ecfa0' }} />
                 <span className="hs-person">Charlie</span>
                 <span className="hs-chip">Board Games</span>
+              </div>
+            </div>
+
+            <div className="hero-stack-card hero-stack-event">
+              <span className="hs-date">Invite Code</span>
+              <span className="hs-name" style={{ fontFamily: 'var(--font-mono)', letterSpacing: '0.06em' }}>RHO-2026</span>
+              <span className="hs-meta">12 members joined</span>
+            </div>
+
+            <div className="hero-stack-card hero-stack-event">
+              <span className="hs-date">Tomorrow · 6 PM</span>
+              <span className="hs-name">Sushi Night</span>
+              <span className="hs-meta">4 going · Sushi Hana</span>
+            </div>
+
+            <div className="hero-stack-card hero-stack-profile">
+              <span className="hs-label">This Month</span>
+              <span className="hs-name">+12 new friends</span>
+              <div className="hs-chips">
+                <span className="hs-chip">3 events</span>
+                <span className="hs-chip">2 groups</span>
+                <span className="hs-chip hs-chip-primary">8 vibes</span>
+              </div>
+            </div>
+
+            <div className="hero-stack-card hero-stack-profile">
+              <span className="hs-label">In Common</span>
+              <span className="hs-name">3 shared vibes</span>
+              <div className="hs-chips">
+                <span className="hs-chip">Hiking</span>
+                <span className="hs-chip">Films</span>
+                <span className="hs-chip hs-chip-primary">Coffee</span>
+              </div>
+            </div>
+
+            <div className="hero-stack-card hero-stack-profile">
+              <span className="hs-label">Profile</span>
+              <span className="hs-name">Riley K.</span>
+              <div className="hs-chips">
+                <span className="hs-chip">Yoga</span>
+                <span className="hs-chip">Films</span>
+                <span className="hs-chip">Cooking</span>
+                <span className="hs-chip hs-chip-primary">INTJ</span>
+                <span className="hs-chip">$$$</span>
+              </div>
+            </div>
+
+            <div className="hero-stack-card hero-stack-event">
+              <span className="hs-date">Sat · May 16</span>
+              <span className="hs-name">Pottery Class</span>
+              <span className="hs-meta">2:00 PM · Earthworks</span>
+            </div>
+
+            <div className="hero-stack-card hero-stack-group">
+              <span className="hs-label">Your Group · 03</span>
+              <div className="hs-row">
+                <span className="hs-dot" style={{ background: '#C4783A' }} />
+                <span className="hs-person">Maya</span>
+                <span className="hs-chip">Music</span>
+              </div>
+              <div className="hs-row">
+                <span className="hs-dot" style={{ background: '#7ecfa0' }} />
+                <span className="hs-person">Sam</span>
+                <span className="hs-chip">Cooking</span>
+              </div>
+              <div className="hs-row">
+                <span className="hs-dot" style={{ background: '#C44C00' }} />
+                <span className="hs-person">Lina</span>
+                <span className="hs-chip">Yoga</span>
               </div>
             </div>
           </Fragment>
