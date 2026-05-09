@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import HeroStack from '../components/HeroStack';
@@ -13,10 +14,54 @@ export default function Home() {
   const { isLoggedIn, user } = useAuth();
   const firstName = user?.name?.split(' ')[0];
 
+  useEffect(() => {
+    document.body.classList.add('body-on-dark');
+    return () => document.body.classList.remove('body-on-dark');
+  }, []);
+
+  useEffect(() => {
+    const hero = document.querySelector('.hero-v2');
+    if (!hero) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        document.body.classList.toggle('nav-scrolled', !entry.isIntersecting);
+      },
+      { rootMargin: '-72px 0px 0px 0px', threshold: 0 }
+    );
+    observer.observe(hero);
+    return () => {
+      observer.disconnect();
+      document.body.classList.remove('nav-scrolled');
+    };
+  }, []);
+
   return (
     <div className="home-v2">
-      <section className="hero-v2">
-        <div className="hero-v2-left">
+      <style>{`
+        .home-v2 .mock-card,
+        .home-v2 .hero-stack-card,
+        .home-v2 .hero-stack-group { box-shadow: none; }
+
+        /* Scrolled nav: keep transparent so the section gradient shows through.
+           Blur lives on a ::before so we can mask its bottom edge into a soft fade. */
+        body.nav-scrolled .nav-on-dark.nav-wrap {
+          background: transparent;
+          box-shadow: none;
+        }
+        body.nav-scrolled .nav-on-dark .nav-brand,
+        body.nav-scrolled .nav-on-dark .nav-brand:hover { color: var(--white); }
+        body.nav-scrolled .nav-on-dark .nav-brand img { filter: brightness(0) invert(1); }
+        body.nav-scrolled .nav-on-dark .nav-links a,
+        body.nav-scrolled .nav-on-dark .nav-links .nav-link { color: rgba(255,255,255,0.78); }
+        body.nav-scrolled .nav-on-dark .nav-links a:hover,
+        body.nav-scrolled .nav-on-dark .nav-links .nav-link:hover { color: var(--white); }
+        body.nav-scrolled .nav-on-dark .nav-links .nav-active { color: var(--white) !important; }
+        body.nav-scrolled .nav-on-dark .nav-user-btn,
+        body.nav-scrolled .nav-on-dark .nav-user-btn:hover { color: var(--white); }
+      `}</style>
+      <div style={{ background: 'linear-gradient(180deg, var(--primary-dark) 0%, var(--primary) 100%)' }}>
+      <section className="hero-v2" style={{ display: 'block', maxWidth: 'none', padding: '72px 0 0', gap: 0 }}>
+        <div className="hero-v2-left" style={{ padding: '0 56px', marginBottom: 56 }}>
           {/* <span className="hero-eyebrow">For student orgs &amp; small communities</span> */}
           <h1 className="hero-v2-title">
             Your <em>autopilot</em> for <br />
@@ -31,18 +76,16 @@ export default function Home() {
               {isLoggedIn ? 'Go to my calendar' : 'Take your seat'}
               <ArrowRight />
             </Link>
-            <a href="#how-it-works" className="btn-pill btn-pill-ghost">How it works</a>
           </div>
         </div>
 
-        <div className="hero-v2-right">
-          <div className="hero-v2-right-label">
-            <span></span> Live · Seating Now
-          </div>
+        <div className="hero-v2-right" style={{ aspectRatio: 'auto', width: '100%', paddingBottom: 60 }}>
           <HeroStack />
         </div>
       </section>
+      </div>
 
+      <div style={{ background: 'linear-gradient(180deg, var(--primary) 0%, var(--accent) 100%)' }}>
       <section id="how-it-works" className="how-v3">
         {/* <p className="how-v3-eyebrow">How Seatd works</p> */}
 
@@ -183,7 +226,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+      </div>
 
+      <div style={{ background: 'linear-gradient(180deg, var(--accent) 0%, var(--primary-light) 100%)' }}>
       <section className="home-cta">
         <div className="home-cta-card">
           {isLoggedIn ? (
@@ -207,6 +252,7 @@ export default function Home() {
           )}
         </div>
       </section>
+      </div>
     </div>
   );
 }

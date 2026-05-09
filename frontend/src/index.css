@@ -79,22 +79,19 @@ body {
   position: sticky;
   top: 0;
   z-index: 1000;
-  display: flex;
-  justify-content: center;
-  padding: 22px 20px 0;
+  padding: 22px 32px 12px;
   pointer-events: none;
+  background: transparent;
 }
 
 .nav-pill {
   pointer-events: auto;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  gap: 60px;
-  background: rgba(26,26,26,0.12);
-  -webkit-backdrop-filter: blur(18px) saturate(1.2);
-  backdrop-filter: blur(18px) saturate(1.2);
-  border-radius: var(--radius-sm);
-  padding: 14px 22px;
+  gap: 24px;
+  background: transparent;
+  padding: 0;
   max-width: 100%;
 }
 
@@ -107,6 +104,7 @@ body {
   font-family: var(--font-heading);
   font-size: 1.7rem;
   letter-spacing: var(--spacing-mono);
+  justify-self: center;
 }
 
 .nav-brand img {
@@ -118,9 +116,8 @@ body {
 .nav-right {
   display: flex;
   align-items: center;
-  gap: 8px;
   gap: 4px;
-  margin-left: auto;
+  justify-self: end;
 }
 
 .nav-links {
@@ -130,7 +127,7 @@ body {
   align-items: center;
   padding: 0;
   margin: 0;
-  display: contents;
+  justify-self: start;
 }
 
 .nav-links a,
@@ -160,7 +157,6 @@ body {
 .nav-cta {
   display: flex;
   align-items: center;
-  display: contents;
 }
 
 .nav-pill-btn {
@@ -206,9 +202,39 @@ body {
 
 .nav-user-btn:hover { background: rgba(0,0,0,0.12); }
 
+.nav-user-btn svg { width: 22px; height: 22px; }
+
+.nav-user-btn-icon {
+  padding: 8px;
+  background: transparent;
+  border-radius: 50%;
+  text-decoration: none;
+}
+
+.nav-user-btn-icon:hover { background: rgba(0,0,0,0.08); }
+
+/* ── Dark-background nav (e.g. on /) — white text + inverted logo ── */
+.nav-on-dark .nav-brand,
+.nav-on-dark .nav-brand:hover { color: var(--white); }
+.nav-on-dark .nav-brand img { filter: brightness(0) invert(1); opacity: 1; }
+
+.nav-on-dark .nav-links a,
+.nav-on-dark .nav-links .nav-link { color: rgba(255,255,255,0.78); }
+.nav-on-dark .nav-links a:hover,
+.nav-on-dark .nav-links .nav-link:hover { color: var(--white); }
+.nav-on-dark .nav-links .nav-active { color: var(--white) !important; }
+
+.nav-on-dark .nav-user-btn {
+  background: transparent;
+  color: var(--white);
+}
+.nav-on-dark .nav-user-btn:hover { background: transparent; color: rgba(255,255,255,0.8); }
+.nav-on-dark .nav-user-btn-icon { background: transparent; }
+.nav-on-dark .nav-user-btn-icon:hover { background: transparent; }
+
 @media (max-width: 720px) {
-  .nav-wrap { padding: 14px 14px 0; }
-  .nav-pill { gap: 20px; padding: 10px 14px; }
+  .nav-wrap { padding: 14px 16px 8px; }
+  .nav-pill { gap: 12px; padding: 0; }
   .nav-brand { font-size: 1.1rem; }
   .nav-links { display: none; }
   .nav-pill-btn { padding: 9px 16px; font-size: 0.7rem; }
@@ -1120,6 +1146,83 @@ body {
   .home-cta-card { padding: 56px 28px; }
 }
 
+/* ── Home: phone (≤600px) — center everything. !important is needed
+   because Home.jsx applies inline styles for hero padding/layout. ── */
+@media (max-width: 600px) {
+  /* Hero — full-width centered column */
+  .home-v2 .hero-v2 {
+    padding: 56px 0 0 !important;
+    gap: 0 !important;
+    text-align: center;
+  }
+  .home-v2 .hero-v2-left {
+    padding: 0 16px !important;
+    margin-bottom: 40px !important;
+    gap: 18px;
+    align-items: center;
+    text-align: center;
+  }
+  .hero-v2-sub {
+    font-size: 1rem;
+    line-height: 1.55;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .hero-v2-ctas { justify-content: center; }
+  .btn-pill { padding: 14px 22px; font-size: 0.88rem; }
+  .home-v2 .hero-v2,
+  .home-v2 .hero-v2-right,
+  .home-v2 .hs-ticker {
+    max-width: none !important;
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  .home-v2 .hero-v2-right { padding-bottom: 40px !important; }
+  /* Prevent horizontal scrollbar from the wide ticker track */
+  body.body-on-dark { overflow-x: clip; }
+
+  /* HeroStack: tighten card sizing so they don't crowd */
+  .hero-stack-card { padding: 14px 16px; gap: 8px; }
+
+  /* How it works — center text columns above visuals */
+  .how-v3 { padding: 16px 20px 40px; gap: 24px; align-items: center; }
+  .how-v3-row { gap: 24px; padding: 24px 0; justify-items: center; }
+  .how-v3-text {
+    gap: 12px;
+    max-width: 100%;
+    align-items: center;
+    text-align: center;
+    margin: 0 auto;
+  }
+  .how-v3-headline { font-size: clamp(1.8rem, 7.5vw, 2.4rem); }
+  .how-v3-body { font-size: 0.98rem; line-height: 1.6; }
+  .how-v3-visual { min-height: 0; justify-content: center; }
+  .how-v3-stepnum { display: none; }
+  .mock-card {
+    padding: 20px 18px;
+    gap: 14px;
+    border-radius: 14px;
+    margin: 0 auto;
+  }
+  .mock-name { font-size: 1.2rem; }
+  .mock-input { padding: 9px 11px; font-size: 0.85rem; }
+
+  /* Final CTA (already centered, just tighten) */
+  .home-cta { padding: 0 20px 64px; }
+  .home-cta-card { padding: 44px 22px; border-radius: 24px; }
+  .home-cta-title { font-size: clamp(1.8rem, 7vw, 2.4rem); margin-bottom: 12px; }
+  .home-cta-desc { font-size: 0.98rem; margin-bottom: 24px; }
+  .home-cta-btn { padding: 14px 26px; font-size: 0.88rem; }
+
+  /* Navbar logo a touch smaller */
+  .nav-brand img { height: 26px; }
+  .nav-brand { font-size: 1rem; }
+  .nav-user-btn svg { width: 20px; height: 20px; }
+}
+
 /* ── Auth Page ── */
 .auth-page {
   min-height: calc(100vh - 65px);
@@ -1910,3 +2013,104 @@ body {
   .members-table-header,
   .members-table-row { grid-template-columns: 32px 1fr 1fr; }
 }
+
+/* ──────────────────────────────────────────────────────────────────────
+   Home landing page — dark mode override
+   Background: var(--primary-dark) (#A33D00, lum ≈ 0.074).
+   White text → 8.47:1 (AAA). White at 0.85 → ~6.7:1 (AA).
+   White at 0.65 → ~4.7:1 (AA normal). Scoped to .home-v2 only.
+   ────────────────────────────────────────────────────────────────────── */
+.home-v2 { background: var(--primary-dark); }
+body.body-on-dark { background: var(--primary-dark); }
+
+
+/* Hero */
+.home-v2 .hero-v2-title { color: var(--white); }
+.home-v2 .hero-v2-title em { color: var(--white); }
+.home-v2 .hero-v2-title em::after { background: rgba(255,255,255,0.18); }
+.home-v2 .hero-v2-sub { color: rgba(255,255,255,0.85); }
+.home-v2 .hero-eyebrow { color: rgba(255,255,255,0.7); }
+
+/* Hero CTA: white pill with dark-orange text (≈ 8.47:1) */
+.home-v2 .btn-pill { background: var(--white); color: var(--primary-dark); }
+.home-v2 .btn-pill:hover { background: var(--bg); color: var(--primary-dark); }
+
+/* "How it works" copy */
+.home-v2 .how-v3-eyebrow { color: rgba(255,255,255,0.7); }
+.home-v2 .how-v3-step-eyebrow { color: var(--white); }
+.home-v2 .how-v3-headline { color: var(--white); }
+.home-v2 .how-v3-body { color: rgba(255,255,255,0.85); }
+.home-v2 .how-v3-stepnum { color: rgba(255,255,255,0.16); opacity: 1; }
+
+/* Mock cards already use white bg + dark text — leave inner contrast alone.
+   Just lift the shadow so they read on the dark page. */
+.home-v2 .mock-card {
+  box-shadow: 0 18px 48px rgba(0,0,0,0.28), 0 4px 12px rgba(0,0,0,0.16);
+}
+.home-v2 .hero-stack-card {
+  box-shadow: 0 12px 32px rgba(0,0,0,0.28), 0 3px 8px rgba(0,0,0,0.16);
+}
+.home-v2 .hero-stack-group {
+  box-shadow: 0 18px 48px rgba(0,0,0,0.32), 0 6px 14px rgba(0,0,0,0.18);
+}
+
+/* Final CTA: invert — white card with dark-orange button */
+.home-v2 .home-cta-card {
+  background: var(--white);
+  color: var(--text-dark);
+}
+.home-v2 .home-cta-card::before {
+  background: radial-gradient(circle at center, rgba(var(--primary-rgb),0.18), transparent 60%);
+}
+.home-v2 .home-cta-card::after {
+  background: radial-gradient(circle at center, rgba(var(--primary-rgb),0.22), transparent 60%);
+}
+.home-v2 .home-cta-title { color: var(--text-dark); }
+.home-v2 .home-cta-desc { color: var(--text-body); }
+.home-v2 .home-cta-btn { background: var(--primary-dark); color: var(--white); }
+.home-v2 .home-cta-btn:hover { background: var(--primary); color: var(--white); }
+
+/* Center all home page content (every viewport). The hero is full-bleed
+   in Home.jsx (display:block), so the children need explicit centering. */
+.home-v2 .hero-v2-left {
+  align-items: center;
+  text-align: center;
+  padding-left: 24px !important;
+  padding-right: 24px !important;
+}
+.home-v2 .hero-v2-sub { margin-left: auto; margin-right: auto; }
+.home-v2 .hero-v2-ctas { justify-content: center; }
+.home-v2 .how-v3 { align-items: center; text-align: center; }
+.home-v2 .how-v3-text { margin-left: auto; margin-right: auto; }
+
+/* Hero title fills the screen width edge-to-edge on every viewport.
+   <br /> is hidden so the text flows naturally and grows to fit. */
+.home-v2 .hero-v2-title {
+  font-size: clamp(2.6rem, 11vw, 12rem);
+  line-height: 1;
+  letter-spacing: -0.01em;
+  max-width: 100%;
+}
+.home-v2 .hero-v2-title br { display: none; }
+
+/* Scrolled-past-hero: full-width white nav, system-dark text, original logo. */
+.nav-on-dark.nav-wrap { transition: background 220ms ease, box-shadow 220ms ease; }
+.nav-on-dark .nav-brand,
+.nav-on-dark .nav-brand img,
+.nav-on-dark .nav-links a,
+.nav-on-dark .nav-user-btn { transition: color 220ms ease, filter 220ms ease; }
+
+body.nav-scrolled .nav-on-dark.nav-wrap {
+  background: var(--white);
+  box-shadow: 0 1px 0 var(--border-light);
+}
+body.nav-scrolled .nav-on-dark .nav-brand,
+body.nav-scrolled .nav-on-dark .nav-brand:hover { color: var(--text-dark); }
+body.nav-scrolled .nav-on-dark .nav-brand img { filter: none; }
+body.nav-scrolled .nav-on-dark .nav-links a,
+body.nav-scrolled .nav-on-dark .nav-links .nav-link { color: var(--text-secondary); }
+body.nav-scrolled .nav-on-dark .nav-links a:hover,
+body.nav-scrolled .nav-on-dark .nav-links .nav-link:hover { color: var(--text-dark); }
+body.nav-scrolled .nav-on-dark .nav-links .nav-active { color: var(--text-dark) !important; }
+body.nav-scrolled .nav-on-dark .nav-user-btn,
+body.nav-scrolled .nav-on-dark .nav-user-btn:hover { color: var(--text-dark); }
